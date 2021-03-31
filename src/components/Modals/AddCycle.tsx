@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import * as api from 'api';
@@ -6,6 +6,9 @@ import { Button } from 'UI/Button';
 import { Title, FlexRow, FlexColumn, Manual } from './styles';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { CycleContext } from 'contexts/CycleContext';
+import { useHistory } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import moment from 'moment';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -28,9 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const AddCycle = (props: any) => {
   const { open, close } = props;
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
+  const history = useHistory();
   const [nextCycle, setNextCycle] = useState();
   const [editable, setEditable] = useState(false);
+  const { setNewCycle } = useContext(CycleContext);
 
   const getNextCycle = async () => {
 		try {
@@ -44,13 +50,17 @@ export const AddCycle = (props: any) => {
   };
   
   const analyzeCycle = async () => {
+    setLoading(true);
     try {
       const response = await api.analyzeCycle(moment(nextCycle?.startDate).format('YYYY-MM-DD'), moment(nextCycle?.endDate).format('YYYY-MM-DD'));
 			if (response && response.data.success) {
-        console.log(response.data.result);
-			}
+        setNewCycle(response.data.result);
+        history.push('/cycleBuild');
+      }
+      setLoading(false);
 		} catch (err) {
-			console.log("err =>", err);
+      console.log("err =>", err);
+      setLoading(false);
 		}
   }
 
@@ -103,7 +113,7 @@ export const AddCycle = (props: any) => {
           style={{marginTop: 70}}
           onClick={analyzeCycle}
         >
-          Build
+          Build {loading ? <CircularProgress style={{width: 20, height: 20, color: '#fff'}}/> : ''}
         </Button>
       </DialogContent>
     </Dialog>

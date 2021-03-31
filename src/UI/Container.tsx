@@ -53,7 +53,8 @@ export const CycleContainer = styled.div`
 	margin-bottom: 35px;
 	float: left;
 	:hover {
-		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8), 0px 16px 32px rgba(0, 0, 0, 0.2);
+		border-left: 9px solid #70BFF9;
+		box-shadow: 0px 4px 8px rgba(112, 192, 249, 0.8), 0px 16px 32px rgba(112, 192, 249, 0.2);
 	}
 `;
 

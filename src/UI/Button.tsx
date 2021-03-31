@@ -20,7 +20,30 @@ export const Button = styled.button`
 	:hover {
 		background: #098ef0;
 	}
+	&.bottom_button {
+		:disabled {
+			background: #707070;
+		}
+	}
+	&.bottom_post_button {
+		left: 271px;
+		:disabled {
+			background: #707070;
+		}
+	}
+	&.bottom_posona_button {
+		left: unset;
+		bottom: 0;
+		right: 0;
+		font-size: 28px;
+		width: 264px;
+		:disabled {
+			background: #707070;
+		}
+	}
 	&.no_fixed_position {
-    position: unset;
+		position: unset;
+		display: flex;
+    justify-content: space-around;
   }
 `;
