@@ -3,8 +3,14 @@ import { NotificationContainer, LeftSection, RightSection, AvatarImg, Notificati
 import Avatar from 'assets/imgs/avatar.png';
 import Slack from 'assets/imgs/slack.png';
 import Email from 'assets/imgs/email.png';
+import { useHistory } from 'react-router-dom';
 
 const NotificationSent = () => {
+  const history = useHistory();
+
+  const details = () => {
+    history.push('/details');
+  }
   
   return (
     <NotificationContainer>
@@ -14,9 +20,9 @@ const NotificationSent = () => {
       </LeftSection>
       <RightSection>
         <NotificationTitle>Direct Message Slack</NotificationTitle>
-        <NotificationImg src={Slack} style={{marginBottom: 154}} />
-        <NotificationTitle>Direct Message Slack</NotificationTitle>
-        <NotificationImg src={Email} />
+        <NotificationImg src={Slack} style={{marginBottom: 154}} onClick={details} />
+        <NotificationTitle>Email Notice</NotificationTitle>
+        <NotificationImg src={Email} onClick={details} />
       </RightSection>
     </NotificationContainer>
   )

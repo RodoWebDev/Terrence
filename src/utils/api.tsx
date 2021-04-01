@@ -9,4 +9,7 @@ export const Api = {
   getNextCycle: `${PORTOPS()}/getNextCycle`,
   analyzeCycle: (startDate: string, endDate: string) => `${PORTOPS()}/analyzeCycle?startDate=${startDate}&endDate=${endDate}`,
   getCycleAnalysis: (id: number) => `${PORTOPS()}/cycleAnalysis?cycleId=${id}`,
+  getCycleDetails: (id: number) => `${PORTOPS()}/cycleReview?cycleRpId=${id}`,
+  updateRpSlack: `${PORTOPS()}/updateRpSlack`,
+  sendNotifications: `${PORTOPS()}/sendNotifications`,
 };

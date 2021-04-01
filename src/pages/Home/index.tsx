@@ -8,11 +8,18 @@ import * as api from 'api';
 import Loading from 'components/loading';
 import AddCycle from 'components/Modals/AddCycle';
 import { CycleContext } from 'contexts/CycleContext';
+import { useHistory } from 'react-router-dom';
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const [addCycleOpen, setAddCycleOpen] = useState(false);
-  const { cycles, setCycles } = useContext(CycleContext);
+  const { cycles, setCycles, setNewCycle } = useContext(CycleContext);
+
+  const onClickCycle = (id: number) => {
+    setNewCycle(cycles[id]);
+    history.push('/cycleBuild');
+  }
 
   const getPortOps = async () => {
 		setLoading(true);
@@ -40,8 +47,8 @@ const Home = () => {
         <Loading />
       ) : (
       <HomeCyclesContainer>
-      {cycles.map((cycle => (
-        <Cycle key={cycle.id} data={{...cycle}} />
+      {cycles.map(((cycle, id) => (
+        <Cycle key={cycle.id} data={{...cycle}} onClickCycle={onClickCycle} id={id}/>
       )))}
       </HomeCyclesContainer>
       )}

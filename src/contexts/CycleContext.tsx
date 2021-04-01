@@ -29,7 +29,7 @@ interface ICycleContext {
   analysis: Analysis[];
   setCycles: (data: any) => void;
   setNewCycle: (data: Cycle) => void;
-  setAnalysis: (data: Analysis) => void;
+  setAnalysis: (data: Analysis[]) => void;
 }
 
 const CycleContext = React.createContext({
@@ -38,7 +38,7 @@ const CycleContext = React.createContext({
   analysis: [],
   setCycles: (data: any) => {},
   setNewCycle: (data: Cycle) => {},
-  setAnalysis: (data: Analysis) => {},
+  setAnalysis: (data: Analysis[]) => {},
 } as ICycleContext);
 export { CycleContext };
 

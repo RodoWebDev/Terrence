@@ -1,1 +1,1 @@
-export { getPortOps, getNextCycle, analyzeCycle, getCycleAnalysis } from './PortOps';
+export { getPortOps, getNextCycle, analyzeCycle, getCycleAnalysis, updateRpSlack, sendNotifications, getCycleDetails } from './PortOps';

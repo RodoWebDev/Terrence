@@ -64,6 +64,18 @@ export const AddCycle = (props: any) => {
 		}
   }
 
+  const onStartDateChanged = (event: any) => {
+    var temp = {...nextCycle};
+    temp.startDate = event.target.value;
+    setNextCycle(temp);
+  }
+
+  const onEndDateChanged = (event: any) => {
+    var temp = {...nextCycle};
+    temp.endDate = event.target.value;
+    setNextCycle(temp);
+  }
+
   useEffect(() => {
     if (open) {
       getNextCycle();
@@ -87,6 +99,7 @@ export const AddCycle = (props: any) => {
                 disabled={!editable}
                 defaultValue={moment(nextCycle?.startDate).format('YYYY-MM-DD')}
                 className={classes.textField}
+                onChange={onStartDateChanged}
               />
             </form>
             {!editable && <Manual onClick={() => setEditable(true)}>manual adjustment</Manual>}
@@ -100,9 +113,7 @@ export const AddCycle = (props: any) => {
                 disabled={!editable}
                 defaultValue={moment(nextCycle?.endDate).format('YYYY-MM-DD')}
                 className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
+                onChange={onEndDateChanged}
               />
             </form>
           </FlexColumn>

@@ -3,9 +3,13 @@ import { CycleContainer, CycleHeader, CycleBody, CycleBoxContainer } from 'UI/Co
 import { CycleHeaderDate, CycleHeaderYear, CycleBoxTitle, CycleBoxDesc } from 'UI/Label';
 import moment from 'moment';
 
-const Cycle = ({data}: any) => {
+const Cycle = (props: any) => {
+  const {data, id, onClickCycle} = props;
+  const onClickCycleContainer = () => {
+    onClickCycle(id);
+  }
   return (
-    <CycleContainer>
+    <CycleContainer onClick={onClickCycleContainer}>
       <CycleHeader>
         <CycleHeaderDate>{moment(data.cycleStartDate).format('MMM DD ')} - {moment(data.cycleEndDate).format('MMM DD')}</CycleHeaderDate>
         <CycleHeaderYear>{moment(data.cycleStartDate).format('YYYY')}</CycleHeaderYear>
