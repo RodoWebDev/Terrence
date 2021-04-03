@@ -74,7 +74,6 @@ export const NewScope = (props: any) => {
 
   const submit = async () => {
     var tempOption = {...currentOptions, initiative: scopeOptions[currentOptions.initiative].initiative, workpackage: scopeOptions[currentOptions.initiative].workpackage};
-    console.log('currentOptions =>', tempOption);
     setLoading(true);
 		try {
       const response = await api.createScope(cycleRpId, tempOption);

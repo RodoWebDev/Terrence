@@ -36,8 +36,20 @@ const ResponsibleParty = () => {
   
   const updateCycleDetails = async (data: any) => {
     var tempCycleDetails = cloneDeep(data);
-    tempCycleDetails[selectedSwitch.cycleRange][selectedSwitch.index].isUpdated = true;
-    setCycleDetails(tempCycleDetails);
+    var apiData = [];
+    apiData.push(tempCycleDetails[selectedSwitch.cycleRange][selectedSwitch.index]);
+    try {
+      const response = await api.cycleReport(apiData);
+			if (response && response.data.success) {
+        getCycleDetails();
+        setOpenAnalysis(false);
+			}
+		} catch (err) {
+      console.log("err =>", err);
+		}
+    // tempCycleDetails[selectedSwitch.cycleRange][selectedSwitch.index].isUpdated = true;
+    // setCycleDetails(tempCycleDetails);
+    // setOpenAnalysis(false);
   }
 
   const submit = async () => {
