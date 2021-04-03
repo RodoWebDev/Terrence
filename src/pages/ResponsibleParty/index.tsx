@@ -199,7 +199,7 @@ const ResponsibleParty = () => {
                 </FlexColumn>
               </FlexRow>
             </>}
-            <FlexRow style={{alignItems: 'center', marginTop: 10}}>
+            <FlexRow style={{alignItems: 'center', marginTop: 10, cursor: 'pointer'}}>
               <AddIcon style={{background: '#EFCA43', borderRadius: '50%', marginRight: 10}} onClick={() => createNewScope('finishInCycle')} />Create new scope
             </FlexRow>
           </FlexColumn>}
@@ -261,7 +261,7 @@ const ResponsibleParty = () => {
                 </FlexColumn>
               </FlexRow>              
             </>}
-            <FlexRow style={{alignItems: 'center', marginTop: 10}}>
+            <FlexRow style={{alignItems: 'center', marginTop: 10, cursor: 'pointer'}}>
               <AddIcon style={{background: '#EFCA43', borderRadius: '50%', marginRight: 10}} onClick={() => createNewScope('startInCycle')} />Create new scope
             </FlexRow>
           </FlexColumn>}
@@ -337,7 +337,7 @@ const ResponsibleParty = () => {
                 </FlexColumn>
               </FlexRow>
             </>}
-            <FlexRow style={{alignItems: 'center', marginTop: 10}}>
+            <FlexRow style={{alignItems: 'center', marginTop: 10, cursor: 'pointer'}}>
               <AddIcon style={{background: '#EFCA43', borderRadius: '50%', marginRight: 10}} onClick={() => createNewScope('rollForward')} />Create new scope
             </FlexRow>
           </FlexColumn>}
