@@ -24,3 +24,9 @@ export const RpStatus = styled.p`
 		padding: 2px 8px;
 	}
 `;
+
+export const CycleDetailsRightLabel = styled.p`
+	font-size: 10px;
+	padding: 6px 0;
+	height: 25px;
+`;

@@ -7,8 +7,8 @@ const Header = (props: any) => {
 	return (
 		<HeaderContainer as="header" style={{ borderBottom: '1px solid black' }}>
 			<HeaderDateContainer>
-				<DateLabel><strong>Cycle Start Date: </strong>{startDate}</DateLabel>
-				<DateLabel><strong>Cycle Finish Date: </strong>{endDate}</DateLabel>
+				{startDate && <DateLabel><strong>Cycle Start Date: </strong>{startDate}</DateLabel>}
+				{endDate && <DateLabel><strong>Cycle Finish Date: </strong>{endDate}</DateLabel>}
 			</HeaderDateContainer>
 		</HeaderContainer>
 	);

@@ -24,3 +24,8 @@ export const RpStatus = styled.p`
 		padding: 2px 8px;
 	}
 `;
+
+export const RpName = styled.a`
+	cursor: pointer;
+  text-decoration: none;
+`;
