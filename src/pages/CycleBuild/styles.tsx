@@ -27,5 +27,29 @@ export const RpStatus = styled.p`
 
 export const RpName = styled.a`
 	cursor: pointer;
-  text-decoration: none;
+	text-decoration: none;
+	font-family: Avenir Next;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 150%;
+	letter-spacing: -0.001em;
+`;
+
+export const BuildTableHeader = styled.p`
+	font-weight: 600;
+	font-size: 22px;
+	line-height: 150%;
+	font-family: Avenir Next;
+	font-style: normal;
+	letter-spacing: -0.001em;
+`;
+
+export const BuildTableBody = styled.p`
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 150%;
+	font-family: Avenir Next;
+	font-style: normal;
+	letter-spacing: -0.001em;
 `;

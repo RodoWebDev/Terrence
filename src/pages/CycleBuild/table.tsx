@@ -16,9 +16,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { Manual } from 'components/Modals/styles';
-import { RpStatus, RpName } from './styles';
+import { RpStatus, RpName, BuildTableHeader, BuildTableBody } from './styles';
 import UpdateSlack from 'components/Modals/UpdateSlack';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 interface Data {
   rpName: number;
@@ -113,12 +113,14 @@ function EnhancedTableHead(props: EnhancedTableProps) {
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
+              <BuildTableHeader>
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <span className={classes.visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </span>
+                ) : null}
+              </BuildTableHeader>              
             </TableSortLabel>
           </TableCell>
         ))}
@@ -213,11 +215,11 @@ export default function EnhancedTable(props: any) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const history = useHistory();
+  // const history = useHistory();
 
-  const goResponsibleParty = (cycleRpId: number) => {
-    history.push(`/rp/${cycleRpId}+`);
-  }
+  // const goResponsibleParty = (cycleRpId: number) => {
+  //   history.push(`/rp/${cycleRpId}+`);
+  // }
 
   const openSlackModal = (row: any) => {
     setSlackModalOpen(true);
@@ -310,7 +312,8 @@ export default function EnhancedTable(props: any) {
                       tabIndex={-1}
                       key={row.rpName}
                       selected={isItemSelected}
-                      onClick={() => goResponsibleParty(row.cycleRpId)}
+                      // onClick={() => goResponsibleParty(row.cycleRpId)}
+                      onClick={(event) => handleClick(event, row.rpName)}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -322,9 +325,9 @@ export default function EnhancedTable(props: any) {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         <RpName onClick={() => openSlackModal(row)}>{row.rpName}</RpName>
                       </TableCell>
-                      <TableCell align="right">{row.totalItemToStart}</TableCell>
-                      <TableCell align="right">{row.totalItemToFinish}</TableCell>
-                      <TableCell align="right">{row.updateRequestsSent}</TableCell>
+                      <TableCell align="right"><BuildTableBody>{row.totalItemToStart}</BuildTableBody></TableCell>
+                      <TableCell align="right"><BuildTableBody>{row.totalItemToFinish}</BuildTableBody></TableCell>
+                      <TableCell align="right"><BuildTableBody>{row.updateRequestsSent}</BuildTableBody></TableCell>
                       <TableCell align="right">
                         <RpStatus 
                           className={
@@ -333,7 +336,7 @@ export default function EnhancedTable(props: any) {
                           }
                           >{row.cycleRpStatus}</RpStatus>
                       </TableCell>
-                      <TableCell align="center"><Manual>schedule meeting</Manual></TableCell>
+                      <TableCell align="center"><Manual style={{fontSize: 11}}>schedule meeting</Manual></TableCell>
                     </TableRow>
                   );
                 })}
