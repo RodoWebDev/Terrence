@@ -312,7 +312,7 @@ export default function EnhancedTable(props: any) {
                       tabIndex={-1}
                       key={row.rpName}
                       selected={isItemSelected}
-                      // onClick={() => goResponsibleParty(row.cycleRpId)}
+                      // onClick={() => goResponsibleParty(row.cycleRpId)} 
                       onClick={(event) => handleClick(event, row.rpName)}
                     >
                       <TableCell padding="checkbox">
