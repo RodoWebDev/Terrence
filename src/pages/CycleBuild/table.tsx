@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -16,7 +16,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { Manual } from 'components/Modals/styles';
-import { RpStatus } from './styles';
+import { RpStatus, RpName } from './styles';
+import UpdateSlack from 'components/Modals/UpdateSlack';
+import { useHistory } from 'react-router-dom';
 
 interface Data {
   rpName: number;
@@ -167,15 +169,10 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         [classes.highlight]: numSelected > 0,
       })}
     >
-      {numSelected > 0 ? (
+      {numSelected > 0 &&
         <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
           {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Nutrition
-        </Typography>
-      )}
+        </Typography>}
     </Toolbar>
   );
 };
@@ -208,12 +205,24 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function EnhancedTable(props: any) {
   const {rows, selected, setSelected} = props;
+  const [open, setSlackModalOpen] = useState(false);
+  const [currenSlackRow, setCurrenSlackRow] = useState();
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Data>('rpName');
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const history = useHistory();
+
+  const goResponsibleParty = (cycleRpId: number) => {
+    history.push(`/rp/${cycleRpId}+`);
+  }
+
+  const openSlackModal = (row: any) => {
+    setSlackModalOpen(true);
+    setCurrenSlackRow(row);
+  }
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -293,25 +302,25 @@ export default function EnhancedTable(props: any) {
                 .map((row: any, index) => {
                   const isItemSelected = isSelected(row.rpName);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.rpName)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.rpName}
                       selected={isItemSelected}
+                      onClick={() => goResponsibleParty(row.cycleRpId)}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
+                          onClick={(event) => handleClick(event, row.rpName)}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.rpName}
+                        <RpName onClick={() => openSlackModal(row)}>{row.rpName}</RpName>
                       </TableCell>
                       <TableCell align="right">{row.totalItemToStart}</TableCell>
                       <TableCell align="right">{row.totalItemToFinish}</TableCell>
@@ -320,7 +329,7 @@ export default function EnhancedTable(props: any) {
                         <RpStatus 
                           className={
                             row.cycleRpStatus === "NotSent"? "NotSent" : 
-                            row.cycleRpStatus === "With RP"? "WithRP" : "Complete"
+                            row.cycleRpStatus === "WithRP"? "WithRP" : "Complete"
                           }
                           >{row.cycleRpStatus}</RpStatus>
                       </TableCell>
@@ -346,6 +355,7 @@ export default function EnhancedTable(props: any) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
+      <UpdateSlack open={open} close={() => setSlackModalOpen(false)} row={currenSlackRow}/>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"

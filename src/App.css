@@ -46,3 +46,15 @@ p {
   flex-direction: column;
   padding: 59px 67px !important;
 }
+
+.newScope-modal__header {
+	display: flex;
+  flex-direction: column;
+  padding: 30px 34px !important;
+}
+
+.changeAnalysis-modal__header {
+	display: flex;
+  flex-direction: column;
+  padding: 20px 24px !important;
+}

@@ -10,6 +10,11 @@ export const Api = {
   analyzeCycle: (startDate: string, endDate: string) => `${PORTOPS()}/analyzeCycle?startDate=${startDate}&endDate=${endDate}`,
   getCycleAnalysis: (id: number) => `${PORTOPS()}/cycleAnalysis?cycleId=${id}`,
   getCycleDetails: (id: number) => `${PORTOPS()}/cycleReview?cycleRpId=${id}`,
-  updateRpSlack: `${PORTOPS()}/updateRpSlack`,
+  updateRpSlack: (rpId: number, slack: string) => `${PORTOPS()}/updateRpSlack?rpId=${rpId}&slack=${slack}`,
   sendNotifications: `${PORTOPS()}/sendNotifications`,
+  getNewScopeData: `${PORTOPS()}/newScopeOptions`,
+  createScope: (cycleRpId: number) => `${PORTOPS()}/createScope?cycleRpId=${cycleRpId}`,
+  completeReview: `${PORTOPS()}/completeReview`,
+  cycleReport: `${PORTOPS()}/cycleReport`,
+  postChanges: (id: number) => `${PORTOPS()}/postChanges?cycleId=${id}`,
 };

@@ -46,4 +46,10 @@ export const Button = styled.button`
 		display: flex;
     justify-content: space-around;
   }
+	&.continue_btn {
+		position: unset;
+		display: flex;
+		justify-content: space-around;
+		width: unset;
+  }
 `;
