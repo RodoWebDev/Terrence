@@ -30,3 +30,38 @@ export const CycleDetailsRightLabel = styled.p`
 	padding: 6px 0;
 	height: 25px;
 `;
+
+export const SwitchContainer = styled.div`
+	width: 60px;
+	height: 20px;
+	background: #F2F2F2;
+	border-radius: 9.70061px;
+	position: relative;
+	cursor: pointer;
+	margin-bottom: 5px;
+`;
+
+export const SwitchInsideContainer = styled.div`
+	width: 30px;
+	height: 16px;
+	position: absolute;
+	top: 2px;
+	color: #fff;
+	font-family: Avenir Next;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 140%;
+	border-radius: 40.4192px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 10px;
+	&.yes {
+		background: #307FE2;
+		left: 3px;
+	}
+	&.no {
+		background: #EF6262;
+		right: 3px;
+	}
+`;
