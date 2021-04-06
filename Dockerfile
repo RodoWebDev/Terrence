@@ -1,7 +1,7 @@
 # pull official base image
 FROM node:13 as builder
 
-ARG API_URL=https://portops.s2shape.com
+ARG API_URL=https://portops.s2shape.com/api
 ENV REACT_APP_API_SERVER=$API_URL
 
 # set working directory
@@ -28,6 +28,7 @@ WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 # Copy static assets from builder stage
 COPY --from=builder /app/build .
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
