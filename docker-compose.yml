@@ -1,0 +1,7 @@
+version: '3.1'
+
+services:
+  port-ops-web:
+    image: registry.s2shape.com/port-ops-web
+    build:
+      context: .
