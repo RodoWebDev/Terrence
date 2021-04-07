@@ -234,19 +234,20 @@ export default function EnhancedTable(props: any) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n: any) => n.rpName);
-      setSelected(newSelecteds);
+      // const newSelecteds = rows.map((n: any) => n.rpName);
+      // setSelected(newSelecteds);
+      setSelected(rows);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event: React.MouseEvent<unknown>, row: any) => {
+    const selectedIndex = selected.indexOf(row);
     let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, row);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -274,7 +275,12 @@ export default function EnhancedTable(props: any) {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  const isSelected = (name: string) => {
+    for (let i=0;i<selected.length;i++) {
+      if(selected[i].rpName === name) return true;
+    }
+    return false;
+  }
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -312,13 +318,13 @@ export default function EnhancedTable(props: any) {
                       tabIndex={-1}
                       key={row.rpName}
                       selected={isItemSelected}
-                      onClick={(event) => handleClick(event, row.rpName)}
+                      onClick={(event) => handleClick(event, row)}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
-                          onClick={(event) => handleClick(event, row.rpName)}
+                          onClick={(event) => handleClick(event, row)}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">

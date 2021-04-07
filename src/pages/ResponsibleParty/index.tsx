@@ -9,7 +9,6 @@ import EnhancedTable from './table';
 import { NotificationTitle } from 'pages/SuccessPage/styles';
 import { FlexRow, FlexColumn } from 'components/Modals/styles';
 import { CycleDetailsRightLabel } from './styles';
-// import Switch from '@material-ui/core/Switch';
 import ChangeAnalysis from 'components/Modals/ChangeAnalysis';
 import EditIcon from '@material-ui/icons/Edit';
 import cloneDeep from 'clone-deep';
@@ -48,9 +47,6 @@ const ResponsibleParty = () => {
 		} catch (err) {
       console.log("err =>", err);
 		}
-    // tempCycleDetails[selectedSwitch.cycleRange][selectedSwitch.index].isUpdated = true;
-    // setCycleDetails(tempCycleDetails);
-    // setOpenAnalysis(false);
   }
 
   const submit = async () => {
@@ -119,23 +115,7 @@ const ResponsibleParty = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const onSwitchChange = (event: React.ChangeEvent<HTMLInputElement>, cycleRange: string, variableName: string, index: number) => {
-  //   if (variableName === 'isStartDateSame' || variableName === 'isFinishDateSame') {
-  //     var tempSelectedSwitch = {...selectedSwitch};
-  //     tempSelectedSwitch.cycleRange = cycleRange;
-  //     tempSelectedSwitch.variableName = variableName;
-  //     tempSelectedSwitch.index = index;
-  //     setSelectedSwitch(tempSelectedSwitch);
-  //     setOpenAnalysis(true);
-  //     return;
-  //   }
-  //   var temp = cloneDeep(cycleDetails);
-  //   temp[cycleRange][index][variableName] = event.target.checked;
-  //   temp[cycleRange][index].isUpdated = true;
-  //   setCycleDetails(temp);
-  // }
-
-  const onSwitchChange1 = (event: boolean, cycleRange: string, variableName: string, index: number) => {
+  const onSwitchChange = (event: boolean, cycleRange: string, variableName: string, index: number) => {
     if (variableName === 'isStartDateSame' || variableName === 'isFinishDateSame') {
       var tempSelectedSwitch = {...selectedSwitch};
       tempSelectedSwitch.cycleRange = cycleRange;
@@ -171,7 +151,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.finishInCycle.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isStartDateSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'finishInCycle', 'isStartDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'finishInCycle', 'isStartDateSame', index)}
                       key={'isStartDateSame' + cycle.id}
                     />
                     // <Switch
@@ -190,7 +170,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.finishInCycle.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isFinishDateSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'finishInCycle', 'isFinishDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'finishInCycle', 'isFinishDateSame', index)}
                       key={'isFinishDateSame' + cycle.id}
                     />
                     // <Switch
@@ -209,7 +189,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.finishInCycle.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isScopeSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'finishInCycle', 'isScopeSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'finishInCycle', 'isScopeSame', index)}
                       key={'isScopeSame' + cycle.id}
                     />
                     // <Switch
@@ -248,7 +228,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.startInCycle.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isStartDateSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'startInCycle', 'isStartDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'startInCycle', 'isStartDateSame', index)}
                       key={'isStartDateSame' + cycle.id}
                     />
                   ))}
@@ -258,7 +238,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.startInCycle.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isFinishDateSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'startInCycle', 'isFinishDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'startInCycle', 'isFinishDateSame', index)}
                       key={'isFinishDateSame' + cycle.id}
                     />
                   ))} 
@@ -268,7 +248,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.startInCycle.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isScopeSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'startInCycle', 'isScopeSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'startInCycle', 'isScopeSame', index)}
                       key={'isScopeSame' + cycle.id}
                     />
                   ))} 
@@ -298,7 +278,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.rollForward.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isStartDateSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'rollForward', 'isStartDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'rollForward', 'isStartDateSame', index)}
                       key={'isStartDateSame' + cycle.id}
                     />
                     // <Switch
@@ -317,7 +297,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.rollForward.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isDurationSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'rollForward', 'isDurationSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'rollForward', 'isDurationSame', index)}
                       key={'isDurationSame' + cycle.id}
                     />
                     // <Switch
@@ -336,7 +316,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.rollForward.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isRelationshipSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'rollForward', 'isRelationshipSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'rollForward', 'isRelationshipSame', index)}
                       key={'isRelationshipSame' + cycle.id}
                     />
                     // <Switch
@@ -355,7 +335,7 @@ const ResponsibleParty = () => {
                   {cycleDetails.rollForward.map((cycle: any, index: number) => (
                     <SwitchComponent 
                       checked={cycle.isScopeSame}
-                      onChange={(event: boolean) => onSwitchChange1(event, 'rollForward', 'isScopeSame', index)}
+                      onChange={(event: boolean) => onSwitchChange(event, 'rollForward', 'isScopeSame', index)}
                       key={'isScopeSame' + cycle.id}
                     />
                     // <Switch

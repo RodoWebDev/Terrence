@@ -13,13 +13,13 @@ import EnhancedTable from './table';
 const CycleBuild = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const [selected, setSelected] = React.useState<string[]>([]);
+  const [selected, setSelected] = React.useState<any[]>([]);
   const { newCycle, analysis, setAnalysis } = useContext(CycleContext);
 
   const sendRequest = async () => {
     var ids = [];
-    for (var i=0; i<analysis.length; i++) {      
-      ids.push(analysis[i].rpId);
+    for (var i=0; i<selected.length; i++) {      
+      ids.push(selected[i].rpId);
     }
     try {
       const response = await api.sendNotifications(ids);
@@ -75,19 +75,21 @@ const CycleBuild = () => {
 
   if (!analysis) return <></>;
 
-  var sendRequestPossibility = analysis.length !== selected.length || analysis.length === 0;
+  var sendRequestPossibility = analysis.length === 0;
   var postPossibility = false;
   var posonaPossibility = false;
   var completeCount = 0;
   var withRPCount = 0;
-  for (var i=0; i<analysis.length; i++) {
+  for (let i=0; i<analysis.length; i++) {
     if (analysis[i].cycleRpStatus === "Complete") {
       completeCount += 1;
     }
     if (analysis[i].cycleRpStatus === "WithRP") {
       withRPCount += 1;
     }
-    if (!analysis[i].rpSlack || analysis[i].rpSlack === 'null') {
+  }
+  for (let i=0; i<selected.length; i++) {
+    if (!selected[i].rpSlack || selected[i].rpSlack === 'null') {
       sendRequestPossibility = true;
     }
   }

@@ -9,7 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import moment from 'moment';
+import { getDate } from 'utils/functions';
 
 interface Data {
   initiative: number;
@@ -173,10 +173,6 @@ export default function EnhancedTable(props: any) {
     setPage(0);
   };
 
-  const getDate = (date: any) => {
-    return date ? moment(date).format('YYYY-MM-DD'):'';
-  }
-
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
@@ -199,7 +195,6 @@ export default function EnhancedTable(props: any) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row: any, index) => {
-                  console.log(row);
                   return (
                     <TableRow
                       hover
