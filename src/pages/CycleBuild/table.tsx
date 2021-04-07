@@ -15,10 +15,10 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import { Manual } from 'components/Modals/styles';
 import { RpStatus, RpName, BuildTableHeader, BuildTableBody } from './styles';
 import UpdateSlack from 'components/Modals/UpdateSlack';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import InfoIcon from '@material-ui/icons/Info';
 
 interface Data {
   rpName: number;
@@ -215,11 +215,11 @@ export default function EnhancedTable(props: any) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  // const history = useHistory();
+  const history = useHistory();
 
-  // const goResponsibleParty = (cycleRpId: number) => {
-  //   history.push(`/rp/${cycleRpId}+`);
-  // }
+  const goResponsibleParty = (cycleRpId: number) => {
+    history.push(`/rp/${cycleRpId}+`);
+  }
 
   const openSlackModal = (row: any) => {
     setSlackModalOpen(true);
@@ -312,7 +312,6 @@ export default function EnhancedTable(props: any) {
                       tabIndex={-1}
                       key={row.rpName}
                       selected={isItemSelected}
-                      // onClick={() => goResponsibleParty(row.cycleRpId)} 
                       onClick={(event) => handleClick(event, row.rpName)}
                     >
                       <TableCell padding="checkbox">
@@ -336,7 +335,9 @@ export default function EnhancedTable(props: any) {
                           }
                           >{row.cycleRpStatus}</RpStatus>
                       </TableCell>
-                      <TableCell align="center"><Manual style={{fontSize: 11}}>schedule meeting</Manual></TableCell>
+                      <TableCell align="center">
+                        <InfoIcon onClick={() => goResponsibleParty(row.cycleRpId)} style={{color: '#70BFF9', cursor: 'pointer'}} />
+                      </TableCell>
                     </TableRow>
                   );
                 })}

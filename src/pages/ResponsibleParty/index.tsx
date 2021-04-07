@@ -9,7 +9,7 @@ import EnhancedTable from './table';
 import { NotificationTitle } from 'pages/SuccessPage/styles';
 import { FlexRow, FlexColumn } from 'components/Modals/styles';
 import { CycleDetailsRightLabel } from './styles';
-import Switch from '@material-ui/core/Switch';
+// import Switch from '@material-ui/core/Switch';
 import ChangeAnalysis from 'components/Modals/ChangeAnalysis';
 import EditIcon from '@material-ui/icons/Edit';
 import cloneDeep from 'clone-deep';
@@ -17,6 +17,7 @@ import AddIcon from '@material-ui/icons/Add';
 import NewScope from 'components/Modals/NewScope';
 import { useParams } from 'react-router-dom';
 import SubmitForm from 'components/Modals/SubmitForm';
+import SwitchComponent from './SwitchComponent';
 
 const ResponsibleParty = () => {
   const [loading, setLoading] = useState(false);
@@ -118,7 +119,23 @@ const ResponsibleParty = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onSwitchChange = (event: React.ChangeEvent<HTMLInputElement>, cycleRange: string, variableName: string, index: number) => {
+  // const onSwitchChange = (event: React.ChangeEvent<HTMLInputElement>, cycleRange: string, variableName: string, index: number) => {
+  //   if (variableName === 'isStartDateSame' || variableName === 'isFinishDateSame') {
+  //     var tempSelectedSwitch = {...selectedSwitch};
+  //     tempSelectedSwitch.cycleRange = cycleRange;
+  //     tempSelectedSwitch.variableName = variableName;
+  //     tempSelectedSwitch.index = index;
+  //     setSelectedSwitch(tempSelectedSwitch);
+  //     setOpenAnalysis(true);
+  //     return;
+  //   }
+  //   var temp = cloneDeep(cycleDetails);
+  //   temp[cycleRange][index][variableName] = event.target.checked;
+  //   temp[cycleRange][index].isUpdated = true;
+  //   setCycleDetails(temp);
+  // }
+
+  const onSwitchChange1 = (event: boolean, cycleRange: string, variableName: string, index: number) => {
     if (variableName === 'isStartDateSame' || variableName === 'isFinishDateSame') {
       var tempSelectedSwitch = {...selectedSwitch};
       tempSelectedSwitch.cycleRange = cycleRange;
@@ -129,7 +146,7 @@ const ResponsibleParty = () => {
       return;
     }
     var temp = cloneDeep(cycleDetails);
-    temp[cycleRange][index][variableName] = event.target.checked;
+    temp[cycleRange][index][variableName] = event;
     temp[cycleRange][index].isUpdated = true;
     setCycleDetails(temp);
   }
@@ -152,43 +169,58 @@ const ResponsibleParty = () => {
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Did it Start On Time?</CycleDetailsRightLabel>
                   {cycleDetails.finishInCycle.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isStartDateSame}
-                      onChange={(event) => onSwitchChange(event, 'finishInCycle', 'isStartDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'finishInCycle', 'isStartDateSame', index)}
                       key={'isStartDateSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
+                    // <Switch
+                    //   size="small"
+                    //   checked={cycle.isStartDateSame}
+                    //   onChange={(event) => onSwitchChange(event, 'finishInCycle', 'isStartDateSame', index)}
+                    //   key={'isStartDateSame' + cycle.id}
+                    //   color="primary"
+                    //   name="checkedB"
+                    //   inputProps={{ 'aria-label': 'primary checkbox' }}
+                    // />
                   ))}
                 </FlexColumn>
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Is Finish Date Still the Same?</CycleDetailsRightLabel>
                   {cycleDetails.finishInCycle.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isFinishDateSame}
-                      onChange={(event) => onSwitchChange(event, 'finishInCycle', 'isFinishDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'finishInCycle', 'isFinishDateSame', index)}
                       key={'isFinishDateSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
+                    // <Switch
+                    //   size="small"
+                    //   checked={cycle.isFinishDateSame}
+                    //   onChange={(event) => onSwitchChange(event, 'finishInCycle', 'isFinishDateSame', index)}
+                    //   key={'isFinishDateSame' + cycle.id}
+                    //   color="primary"
+                    //   name="checkedB"
+                    //   inputProps={{ 'aria-label': 'primary checkbox' }}
+                    // />
                   ))} 
                 </FlexColumn>
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Scope the same?</CycleDetailsRightLabel>
                   {cycleDetails.finishInCycle.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isScopeSame}
-                      onChange={(event) => onSwitchChange(event, 'finishInCycle', 'isScopeSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'finishInCycle', 'isScopeSame', index)}
                       key={'isScopeSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
+                    // <Switch
+                    //   size="small"
+                    //   checked={cycle.isScopeSame}
+                    //   onChange={(event) => onSwitchChange(event, 'finishInCycle', 'isScopeSame', index)}
+                    //   key={'isScopeSame' + cycle.id}
+                    //   color="primary"
+                    //   name="checkedB"
+                    //   inputProps={{ 'aria-label': 'primary checkbox' }}
+                    // />
                   ))} 
                 </FlexColumn>
                 <FlexColumn style={{padding: 5}}>
@@ -214,42 +246,30 @@ const ResponsibleParty = () => {
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Did it Start On Time?</CycleDetailsRightLabel>
                   {cycleDetails.startInCycle.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isStartDateSame}
-                      onChange={(event) => onSwitchChange(event, 'startInCycle', 'isStartDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'startInCycle', 'isStartDateSame', index)}
                       key={'isStartDateSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
                   ))}
                 </FlexColumn>
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Did it Finish On Time?</CycleDetailsRightLabel>
                   {cycleDetails.startInCycle.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isFinishDateSame}
-                      onChange={(event) => onSwitchChange(event, 'startInCycle', 'isFinishDateSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'startInCycle', 'isFinishDateSame', index)}
                       key={'isFinishDateSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
                   ))} 
                 </FlexColumn>
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Scope the same?</CycleDetailsRightLabel>
                   {cycleDetails.startInCycle.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isScopeSame}
-                      onChange={(event) => onSwitchChange(event, 'startInCycle', 'isScopeSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'startInCycle', 'isScopeSame', index)}
                       key={'isScopeSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
                   ))} 
                 </FlexColumn>
@@ -276,57 +296,77 @@ const ResponsibleParty = () => {
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Start Date the same?</CycleDetailsRightLabel>
                   {cycleDetails.rollForward.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isStartDateSame}
-                      onChange={(event) => onSwitchChange(event, 'rollForward', 'isStartDateSame', index)}
-                      key={'Start' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'rollForward', 'isStartDateSame', index)}
+                      key={'isStartDateSame' + cycle.id}
                     />
+                    // <Switch
+                    //   size="small"
+                    //   checked={cycle.isStartDateSame}
+                    //   onChange={(event) => onSwitchChange(event, 'rollForward', 'isStartDateSame', index)}
+                    //   key={'Start' + cycle.id}
+                    //   color="primary"
+                    //   name="checkedB"
+                    //   inputProps={{ 'aria-label': 'primary checkbox' }}
+                    // />
                   ))}
                 </FlexColumn>
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Duration the same?</CycleDetailsRightLabel>
                   {cycleDetails.rollForward.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isDurationSame}
-                      onChange={(event) => onSwitchChange(event, 'rollForward', 'isDurationSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'rollForward', 'isDurationSame', index)}
                       key={'isDurationSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
+                    // <Switch
+                    //   size="small"
+                    //   checked={cycle.isDurationSame}
+                    //   onChange={(event) => onSwitchChange(event, 'rollForward', 'isDurationSame', index)}
+                    //   key={'isDurationSame' + cycle.id}
+                    //   color="primary"
+                    //   name="checkedB"
+                    //   inputProps={{ 'aria-label': 'primary checkbox' }}
+                    // />
                   ))} 
                 </FlexColumn>
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Relationships the same?</CycleDetailsRightLabel>
                   {cycleDetails.rollForward.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isRelationshipSame}
-                      onChange={(event) => onSwitchChange(event, 'rollForward', 'isRelationshipSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'rollForward', 'isRelationshipSame', index)}
                       key={'isRelationshipSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
+                    // <Switch
+                    //   size="small"
+                    //   checked={cycle.isRelationshipSame}
+                    //   onChange={(event) => onSwitchChange(event, 'rollForward', 'isRelationshipSame', index)}
+                    //   key={'isRelationshipSame' + cycle.id}
+                    //   color="primary"
+                    //   name="checkedB"
+                    //   inputProps={{ 'aria-label': 'primary checkbox' }}
+                    // />
                   ))} 
                 </FlexColumn>
                 <FlexColumn style={{flex: 1, padding: 5}}>
                   <CycleDetailsRightLabel>Scope the same?</CycleDetailsRightLabel>
                   {cycleDetails.rollForward.map((cycle: any, index: number) => (
-                    <Switch
-                      size="small"
+                    <SwitchComponent 
                       checked={cycle.isScopeSame}
-                      onChange={(event) => onSwitchChange(event, 'rollForward', 'isScopeSame', index)}
+                      onChange={(event: boolean) => onSwitchChange1(event, 'rollForward', 'isScopeSame', index)}
                       key={'isScopeSame' + cycle.id}
-                      color="primary"
-                      name="checkedB"
-                      inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
+                    // <Switch
+                    //   size="small"
+                    //   checked={cycle.isScopeSame}
+                    //   onChange={(event) => onSwitchChange(event, 'rollForward', 'isScopeSame', index)}
+                    //   key={'isScopeSame' + cycle.id}
+                    //   color="primary"
+                    //   name="checkedB"
+                    //   inputProps={{ 'aria-label': 'primary checkbox' }}
+                    // />
                   ))} 
                 </FlexColumn>
                 <FlexColumn style={{padding: 5}}>
